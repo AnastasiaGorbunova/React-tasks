@@ -32,8 +32,15 @@
   },
   "license": "ISC",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2",
     "cross-env": "^5.2.0",
     "node-sass": "^4.9.3",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "reset-css": "^4.0.1"
-  }
+  },
+  "keywords": [],
+  "author": "",
+  "description": ""
 }
