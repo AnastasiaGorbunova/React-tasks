@@ -17,14 +17,16 @@ class myComponent extends React.Component {
     }
 
     render() {
-        const listSteps = this.state.steps.map((step) =>
-            <li key={step.toString()}>
-                {step}
-            </li>
-        );
+        const steps = this.state.steps;
 
         return (
-            <ul className='list'>{listSteps}</ul>
+            <ul className='list' onClick={this.handleClick}>{
+                steps.map((step,index) =>
+                    <li key={index}>
+                        {step}
+                    </li>
+                )
+            }</ul>
         );
     }
 
@@ -36,8 +38,6 @@ class myComponent extends React.Component {
     }
 
     componentDidMount() {
-        const list = document.querySelector('.list');
-        list.addEventListener('click', this.handleClick);
         console.log(this.state);
     }
 
