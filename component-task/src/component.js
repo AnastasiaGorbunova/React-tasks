@@ -1,42 +1,19 @@
-const e = React.createElement;
-
-class List extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            steps: ['constructor',
-                'getDerivedStateFromProps',
-                'render',
-                'componentDidMount']
-        };
-        this.handleClickUpdate = this.handleClickUpdate.bind(this);
-    }
-
-    static getDerivedStateFromProps(prop, state) {
-        return null;
-    }
-
+class StepsList extends React.Component {
     render() {
-        const steps = this.state.steps;
+        const {steps} = this.props;
         return (
-            <ul className='list' onClick={this.handleClick}>{
+            <ul className='list'> {
                 steps.map((step, index) =>
                     <li key={index}>
                         {step}
                     </li>
                 )
-            }</ul>
+            } </ul>
         );
     }
 
-    handleClickUpdate() {
-        const steps = this.state.steps;
-        const item = 'componentDidUpdate';
-        this.setState({steps: steps.concat(item)});
-    }
-
     componentDidUpdate(prevProps, prevState) {
-        console.log('did update');
+        console.log('updated');
     }
 
     componentDidMount() {
@@ -48,53 +25,46 @@ class List extends React.Component {
     }
 }
 
-class ListContainer extends React.Component {
+class Container extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            unmount: false
+            unmount: false,
+            updated: null
         };
-        this.child = React.createRef();
-        this.handleClickUnmount = this.handleClickUnmount.bind(this);
     }
+
+    steps = [
+        'constructor',
+        'getDerivedStateFromProps',
+        'render',
+        'componentDidMount'
+    ];
 
     handleClickUpdate = () => {
-        this.child.current.handleClickUpdate();
+        const {updated} = this.state;
+        this.steps  = this.steps.concat('componentDidUpdate');
+        this.setState({updated: updated + 1});
     };
 
-    handleClickUnmount() {
-        if (!this.state.unmount) {
-            this.setState({
-                unmount: true
-            });
-        }
-        else {
-            this.setState({
-                unmount: false
-            });
-        }
-    }
+    handleClickUnmount = () => {
+        const {unmount} = this.state;
+        this.setState(prevState => ({unmount: !unmount}));
+    };
 
     render() {
-        return [
-            (!this.state.unmount) ?
-                <div key = {1} className="list-container">
+        const {unmount} = this.state;
+        return (
+            !unmount ?
+                (<div className="list-container">
                     <button onClick={this.handleClickUpdate}>Update</button>
                     <button onClick={this.handleClickUnmount}>Unmount</button>
-                    <List ref={this.child}/>
-                </div> :
-                <button key = {2} onClick={this.handleClickUnmount}>Mount</button>
-        ];
-
-        // return arr.map((elem, index) => {
-        //         let b = document.querySelector(elem.type).firstChild;
-        //         console.log(b);
-        //         console.log(elem);
-        //         return arr;
-        //     }
-        // );
+                    <List steps = {this.steps} />
+                </div>) :
+                (<button onClick={this.handleClickUnmount}>Mount</button>)
+        );
     }
 }
 
 const domContainer = document.querySelector('.app-container');
-ReactDOM.render(e(ListContainer), domContainer);
+ReactDOM.render(<Container/>, domContainer);

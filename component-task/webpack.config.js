@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const react = require('react');
 
 module.exports = {
     entry: './src/component.js',
@@ -61,6 +62,14 @@ module.exports = {
                         presets: ['env']
                     }
                 }]
+            },
+            {
+                test: /\.(js|jsx)$/,
+                loader: require.resolve('babel-loader'),
+                options: {
+                    cacheDirectory: true,
+                    plugins: ['react-hot-loader/babel'],
+                },
             }
         ]
     }

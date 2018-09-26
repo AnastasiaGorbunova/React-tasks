@@ -1,9 +1,10 @@
 {
-  "presets": [
+  "presets": ["react",
     "env",
-    "stage-3"
-  ],
-  "plugins": ["transform-decorators-legacy",
+    "stage-0"],
+  "plugins": [
     "transform-class-properties",
-    "transform-function-bind"]
+    "transform-react-jsx",
+    "react-hot-loader/babel"
+  ]
 }
