@@ -59,7 +59,7 @@ class Container extends React.Component {
                 (<div className="list-container">
                     <button onClick={this.handleClickUpdate}>Update</button>
                     <button onClick={this.handleClickUnmount}>Unmount</button>
-                    <List steps = {this.steps} />
+                    <StepsList steps = {this.steps} />
                 </div>) :
                 (<button onClick={this.handleClickUnmount}>Mount</button>)
         );
