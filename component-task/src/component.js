@@ -30,8 +30,7 @@ class Container extends React.Component {
                 'getDerivedStateFromProps',
                 'render',
                 'componentDidMount'
-            ],
-            mountButtonText: 'Unmount'
+            ]
         };
     }
 
@@ -48,32 +47,26 @@ class Container extends React.Component {
 
         this.setState(({unmount, updates, steps}) => ({
             unmount: !unmount,
-            steps: steps.concat(mountMessege),
-            mountButtonText: !unmount ? 'Mount' : 'Unmount'
+            steps: steps.concat(mountMessege)
         }));
     };
 
     render() {
-        const {unmount, steps, mountButtonText} = this.state;
-        let container = <div>
-            <button onClick={this.handleClickUpdate}>Update</button>
-            <button onClick={this.handleClickUnmount}>{mountButtonText}</button>
-            <ul className='list'> {
-                steps.map((step, index) =>
-                    <li key={index}>
-                        {step}
-                    </li>
-                )
-            } </ul>
-        </div>;
-
+        const {unmount, steps} = this.state;
+        
         return (
-            !unmount ?
-                (<div className="list-container">
-                    <div> {container}</div>
-                    <Square/>
-                    </div>) :
-                (<div className="list-container"> {container} </div>)
+            <div className="list-container">
+                <button onClick={this.handleClickUpdate}>Update</button>
+                <button onClick={this.handleClickUnmount}>{!unmount ? 'Unmount' : 'Mount'}</button>
+                <ul className='list'> {
+                    steps.map((step, index) =>
+                        <li key={index}>
+                            {step}
+                        </li>
+                    )
+                } </ul>
+                {!unmount && <Square/>}
+            </div>
         )
     }
 }
