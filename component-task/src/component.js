@@ -30,7 +30,8 @@ class Container extends React.Component {
                 'getDerivedStateFromProps',
                 'render',
                 'componentDidMount'
-            ]
+            ],
+            mountButtonText: 'Unmount'
         };
     }
 
@@ -42,47 +43,38 @@ class Container extends React.Component {
     };
 
     handleClickUnmount = () => {
-        const {unmount} = this.state;
+        const {unmount, mountButtonText} = this.state;
         let mountMessege = !unmount ? 'componentDidUnmount' : 'componentDidMount';
 
         this.setState(({unmount, updates, steps}) => ({
             unmount: !unmount,
-            steps: steps.concat(mountMessege)
+            steps: steps.concat(mountMessege),
+            mountButtonText: !unmount ? 'Mount' : 'Unmount'
         }));
     };
 
     render() {
-        let container;
-        const {unmount, steps} = this.state;
-        if (!unmount) {
-            container = <div>
-                <button onClick={this.handleClickUpdate}>Update</button>
-                <button onClick={this.handleClickUnmount}>Unmount</button>
-                <ul className='list'> {
-                    steps.map((step, index) =>
-                        <li key={index}>
-                            {step}
-                        </li>
-                    )
-                } </ul>
-                <Square/>
-            </div>;
-        }
-        else {
-            container = <div>
-                <button onClick={this.handleClickUpdate}>Update</button>
-                <button onClick={this.handleClickUnmount}>Mount</button>
-                <ul className='list'> {
-                    steps.map((step, index) =>
-                        <li key={index}>
-                            {step}
-                        </li>
-                    )
-                } </ul>
-            </div>
-        }
+        const {unmount, steps, mountButtonText} = this.state;
+        let container = <div>
+            <button onClick={this.handleClickUpdate}>Update</button>
+            <button onClick={this.handleClickUnmount}>{mountButtonText}</button>
+            <ul className='list'> {
+                steps.map((step, index) =>
+                    <li key={index}>
+                        {step}
+                    </li>
+                )
+            } </ul>
+        </div>;
 
-        return <div className="list-container"> {container} </div>;
+        return (
+            !unmount ?
+                (<div className="list-container">
+                    <div> {container}</div>
+                    <Square/>
+                    </div>) :
+                (<div className="list-container"> {container} </div>)
+        )
     }
 }
 
