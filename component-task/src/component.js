@@ -1,14 +1,9 @@
-class StepsList extends React.Component {
+class Square extends React.Component {
     render() {
-        const {steps} = this.props;
         return (
-            <ul className='list'> {
-                steps.map((step, index) =>
-                    <li key={index}>
-                        {step}
-                    </li>
-                )
-            } </ul>
+            <div className="square">
+                lol
+            </div>
         );
     }
 
@@ -30,43 +25,64 @@ class Container extends React.Component {
         super(props);
         this.state = {
             unmount: false,
-            updates: null
+            steps: [
+                'constructor',
+                'getDerivedStateFromProps',
+                'render',
+                'componentDidMount'
+            ]
         };
     }
 
-    steps = [
-        'constructor',
-        'getDerivedStateFromProps',
-        'render',
-        'componentDidMount'
-    ];
-
     handleClickUpdate = () => {
-        const {updates} = this.state;
-        this.steps = this.steps.concat('componentDidUpdate');
-        this.setState({updates: updates + 1});
+        this.setState(({updates, steps}) => ({
+            updates: updates + 1,
+            steps: steps.concat('componentDidUpdate')
+        }));
     };
 
     handleClickUnmount = () => {
         const {unmount} = this.state;
-        this.setState(prevState => ({
+        let mountMessege = !unmount ? 'componentDidUnmount' : 'componentDidMount';
+
+        this.setState(({unmount, updates, steps}) => ({
             unmount: !unmount,
-            updates: null
+            steps: steps.concat(mountMessege)
         }));
     };
 
     render() {
-        console.log(this.state);
-        const {unmount} = this.state;
-        return (
-            !unmount ?
-                (<div className="list-container">
-                    <button onClick={this.handleClickUpdate}>Update</button>
-                    <button onClick={this.handleClickUnmount}>Unmount</button>
-                    <StepsList steps={this.steps}/>
-                </div>) :
-                (<button onClick={this.handleClickUnmount}>Mount</button>)
-        );
+        let container;
+        const {unmount, steps} = this.state;
+        if (!unmount) {
+            container = <div>
+                <button onClick={this.handleClickUpdate}>Update</button>
+                <button onClick={this.handleClickUnmount}>Unmount</button>
+                <ul className='list'> {
+                    steps.map((step, index) =>
+                        <li key={index}>
+                            {step}
+                        </li>
+                    )
+                } </ul>
+                <Square/>
+            </div>;
+        }
+        else {
+            container = <div>
+                <button onClick={this.handleClickUpdate}>Update</button>
+                <button onClick={this.handleClickUnmount}>Mount</button>
+                <ul className='list'> {
+                    steps.map((step, index) =>
+                        <li key={index}>
+                            {step}
+                        </li>
+                    )
+                } </ul>
+            </div>
+        }
+
+        return <div className="list-container"> {container} </div>;
     }
 }
 
