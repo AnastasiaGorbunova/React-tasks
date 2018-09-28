@@ -53,7 +53,7 @@ class Container extends React.Component {
 
     render() {
         const {unmount, steps} = this.state;
-        
+
         return (
             <div className="list-container">
                 <button onClick={this.handleClickUpdate}>Update</button>
