@@ -1,7 +1,9 @@
 {
-  "presets": ["react",
+  "presets": [
+    "react",
     "env",
-    "stage-0"],
+    "stage-0"
+  ],
   "plugins": [
     "transform-class-properties",
     "transform-react-jsx",

@@ -14,20 +14,20 @@ module.exports = {
         port: 9000,
         hot: true,
         open: true,
-        historyApiFallback : true
+        historyApiFallback: true
     },
-    resolve : {
-        modules : ['src', 'node_modules']
+    resolve: {
+        modules: ['src', 'node_modules']
     },
-    node : {
+    node: {
         fs: 'empty'
     },
-    plugins : [new webpack.HotModuleReplacementPlugin()],
+    plugins: [new webpack.HotModuleReplacementPlugin()],
     module: {
         rules: [
             {
-                test : /\.html$/,
-                loader : 'raw-loader'
+                test: /\.html$/,
+                loader: 'raw-loader'
             },
             {
                 test: /\.s?css$/,
@@ -54,21 +54,13 @@ module.exports = {
                 ]
             },
             {
-                test: /\.js$/,
-                exclude: '/node-modules/',
-                use: [{
+                test: /\.(js|jsx)$/,
+                use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env']
+                        cacheDirectory: true,
+                        plugins: ['react-hot-loader/babel'],
                     }
-                }]
-            },
-            {
-                test: /\.(js|jsx)$/,
-                loader: require.resolve('babel-loader'),
-                options: {
-                    cacheDirectory: true,
-                    plugins: ['react-hot-loader/babel'],
                 },
             }
         ]
