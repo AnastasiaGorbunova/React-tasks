@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const react = require('react');
 
 module.exports = {
-    entry: './src/component.js',
+    entry: './src/app.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
