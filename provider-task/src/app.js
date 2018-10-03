@@ -4,6 +4,7 @@ import ColorProvider from './color-provider';
 import Button from './button';
 
 class App extends React.Component {
+
     render() {
         return (
             <ColorProvider>
