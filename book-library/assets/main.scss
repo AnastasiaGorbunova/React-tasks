@@ -1,3 +1,23 @@
 body {
-  background: wheat;
+  background: #a0d8fa;
+
 }
+
+.book-container {
+  display: flex;
+  max-width: 1300px;
+  margin: 0 auto;
+
+  .book-item {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    background: #ffece5;
+    min-height: 150px;
+    min-width: 150px;
+    margin: 5px;
+    padding: 3px;
+    color: #000;
+  }
+}
+
