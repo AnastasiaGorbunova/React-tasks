@@ -1,32 +1,32 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+
+const modalRoot = document.querySelector('.modal-root');
 
 class ModalWindow extends React.Component {
 
+    el = document.createElement('div');
+
+    componentDidMount() {
+        modalRoot.appendChild(this.el);
+    }
+
+    componentWillUnmount() {
+        modalRoot.removeChild(this.el);
+    }
+
     render() {
 
-        return (
-            <div className="modal-wrapper">
-                <aside className="modal">
-                    <span className='modal-icon-close'>×</span>
-                    <header>
-                        <h2 className="modal-title">Book title will be here</h2>
-                    </header>
+        return ReactDOM.createPortal(
+            <div className="modal-wrapper" onClick={this.props.onClose}>
+                <aside className="modal" >
+                    <p className='modal-icon-close'>Close</p>
                     <div className='book-information-container'>
-                        <span>
-                           Author: Lol Kek
-                        </span>
-                        <span>
-                           Year: 2007
-                        </span>
-                        <span>
-                           Pages: 10
-                        </span>
-                        <span>
-                           Description: There are three types of sentence structures: simple, compound and complex.
-                        </span>
+                        {this.props.children}
                     </div>
                 </aside>
-                </div>
+            </div>,
+            this.el
         )
     }
 }

@@ -7,24 +7,21 @@ const initialState = {
             author: 'Jack London',
             year: 1990,
             pages: 234,
-            description: 'lalya topolya',
-            open: false
+            description: 'lalya topolya'
         },
         {
             id: 2,
             author: 'Lilo Stich',
             year: 1978,
             pages: 99,
-            description: '',
-            open: false
+            description: ''
         },
         {
             id: 3,
             author: 'Kod Sich',
             year: 1978,
             pages: 99,
-            description: '',
-            open: false
+            description: ''
         }
     ]
 };
@@ -38,8 +35,7 @@ export default function BookReducer(state = initialState, action) {
             };
         case types.SELECT_BOOK:
             return {
-                ...state,
-                open : !state.books.open
+                ...state
             };
         default:
             return state;
