@@ -35,7 +35,8 @@ export default function BookReducer(state = initialState, action) {
             };
         case types.SELECT_BOOK:
             return {
-                ...state
+                ...state,
+                books: state.books.filter(({ id }) => id === action.id)
             };
         default:
             return state;
