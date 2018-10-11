@@ -1,5 +1,6 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
+import { Field } from 'redux-form';
 
 import ModalWindow from "../components/ModalWindow";
 import connect from "react-redux/es/connect/connect";
@@ -21,7 +22,7 @@ class ModalContainer extends React.Component {
     }
 
     render() {
-        const {bookInfo, id} = this.props;
+        const {bookInfo} = this.props;
 
         return (
             this.props.bookInfo ?
@@ -52,7 +53,6 @@ class ModalContainer extends React.Component {
 
 const mapStateToProps = ({books}, {match}) => {
     return {
-        id: match.params.id,
         bookInfo: books.find( ({id}) => id  === match.params.id)
     }
 };

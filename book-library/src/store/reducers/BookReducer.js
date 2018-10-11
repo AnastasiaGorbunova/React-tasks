@@ -31,7 +31,7 @@ const initialState = {
             name: 'The Book Thief',
             year: 2005,
             pages: 560,
-            description: 'fjfjfjfjfjfj',
+            description: 'Liesel Meminger is a foster girl living outside of Munich, who scratches out a meager existence for herself by stealing when she encounters something she can’t resist–books. With the help of her accordion-playing foster father, she learns to read and shares her stolen books with her neighbors during bombing raids as well as with the Jewish man hidden in her basement. ',
             cover: 'https://images-na.ssl-images-amazon.com/images/I/91ndEtx1uWL.jpg'
         }
     ]
@@ -43,11 +43,6 @@ export default function BookReducer(state = initialState, action) {
             return {
                 ...state,
                 books: state.books.filter(({ id }) => id !== action.id)
-            };
-        case types.SELECT_BOOK:
-            return {
-                ...state,
-                books: state.books.filter(({ id }) => id === action.id)
             };
         default:
             return state;
