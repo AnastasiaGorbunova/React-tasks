@@ -6,10 +6,3 @@ export function deleteBook(id) {
         id
     };
 }
-
-export function selectBook(id) {
-    return {
-        type: types.SELECT_BOOK,
-        id
-    };
-}

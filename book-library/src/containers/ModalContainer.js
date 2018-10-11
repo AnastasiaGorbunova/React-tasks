@@ -53,7 +53,7 @@ class ModalContainer extends React.Component {
 const mapStateToProps = ({books}, {match}) => {
     return {
         id: match.params.id,
-        bookInfo: books.find( book => book.id  === match.params.id)
+        bookInfo: books.find( ({id}) => id  === match.params.id)
     }
 };
 
