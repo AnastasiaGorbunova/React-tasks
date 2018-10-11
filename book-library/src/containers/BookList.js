@@ -17,18 +17,9 @@ class BookList extends React.Component {
                         <Link to={`/books/${book.id}`} key={book.id}>
                             <li className='book-item'>
                                 <span className='book-item-delete' onClick={this.onDeleteHandle(book.id)}>×</span>
-                                <p>
-                                    Author: {book.author}
-                                </p>
-                                <p>
-                                    Year: {book.year}
-                                </p>
-                                <p>
-                                    Pages: {book.pages}
-                                </p>
-                                <p>
-                                    Description: {book.description}
-                                </p>
+                                <div>
+                                    <img className='book-item-cover' src={book.cover}/>
+                                </div>
                             </li>
                         </Link>
                     )
@@ -41,19 +32,15 @@ class BookList extends React.Component {
     onDeleteHandle = id => () => this.props.deleteBook(id);
 }
 
-const mapStateToProps = (state, props) => {
-    console.log(props);
+const mapStateToProps = ({books}) => {
     return {
-        books: state.books
+        books: books
     }
 };
 
 const mapDispatchToProps = dispatch => ({
     deleteBook: id => {
         dispatch(BookActions.deleteBook(id))
-    },
-    selectBook: id => {
-        dispatch(BookActions.selectBook(id))
     }
 });
 

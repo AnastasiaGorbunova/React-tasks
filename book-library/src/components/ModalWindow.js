@@ -20,14 +20,10 @@ class ModalWindow extends React.Component {
     render() {
 
         return ReactDOM.createPortal(
-            <div className="modal-wrapper" onClick={this.props.onClose}>
+            <div className="modal-wrapper">
                 <aside className="modal" >
-                    <Link to='/'>
-                        <p className='modal-icon-close'>×</p>
-                    </Link>
-                    <div className='book-information-container'>
                         {this.props.children}
-                    </div>
+
                 </aside>
             </div>,
             this.el
