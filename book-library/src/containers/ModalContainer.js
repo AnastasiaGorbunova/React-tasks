@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 import {Field, reduxForm} from 'redux-form';
-import TextField from '@material-ui/core/TextField';
+//import TextField from '@material-ui/core/TextField';
 
 import ModalWindow from "../components/ModalWindow";
 import connect from "react-redux/es/connect/connect";
@@ -26,7 +26,7 @@ class ModalContainer extends React.Component {
 
     render() {
 console.log(this.props)
-        const {bookInfo, initialValues, handleSubmit} = this.props;
+        const {bookInfo} = this.props;
         return (
             this.props.initialValues ?
                 <ModalWindow>
@@ -37,7 +37,6 @@ console.log(this.props)
                                 src={bookInfo.cover}
                                 alt="white fang"/>
                         </div>
-                        <TextField id="time" type="time" inputProps={bookInfo.author} />
                         <form >
                             <div className="book-info">
                                 <Field name='name' className="modal-title" component='textarea' type='text' />
@@ -56,11 +55,11 @@ console.log(this.props)
     };
 }
 
-const mapStateToProps = (state, {match}) => {
-    console.log(state.bookReducer.books.find(({id}) => id === match.params.id))
+const mapStateToProps = ({bookReducer}, {match}) => {
+    console.log(bookReducer.books.find(({id}) => id === match.params.id))
     return {
-        bookInfo: state.bookReducer.books.find(({id}) => id === match.params.id),
-        initialValues: state.bookReducer.books.find(({id}) => id === match.params.id)
+        bookInfo: bookReducer.books.find(({id}) => id === match.params.id),
+        initialValues: bookReducer.books.find(({id}) => id === match.params.id)
     }
 };
 
