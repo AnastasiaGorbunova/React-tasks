@@ -3,13 +3,19 @@ import ReactDOM from 'react-dom';
 import {Route, BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
+import {reducer as formReducer} from 'redux-form';
+import {combineReducers} from 'redux';
 
 import '../assets/main.scss';
 import BookList from './containers/BookList';
-import reducers from 'store/reducers';
+import {bookReducer} from 'store/reducers/BookReducer';
 
+const rootReducer = combineReducers({
+    bookReducer,
+    form: formReducer
+});
 
-const store = createStore(reducers);
+const store = createStore(rootReducer);
 
 class App extends React.Component {
 
@@ -17,7 +23,7 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <Provider store={store}>
-                        <Route path='/' component={BookList}/>
+                    <Route path='/' component={BookList}/>
                 </Provider>
             </BrowserRouter>
         );

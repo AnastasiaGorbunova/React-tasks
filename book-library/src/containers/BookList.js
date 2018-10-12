@@ -2,6 +2,7 @@ import React from 'react';
 import {Route, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
+
 import * as BookActions from '../store/actions/BookActions';
 import ModalContainer from "./ModalContainer";
 
@@ -32,9 +33,9 @@ class BookList extends React.Component {
     onDeleteHandle = id => () => this.props.deleteBook(id);
 }
 
-const mapStateToProps = ({books}) => {
+const mapStateToProps = (state) => {
     return {
-        books: books
+        books: state.bookReducer.books
     }
 };
 
