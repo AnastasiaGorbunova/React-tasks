@@ -1,14 +1,12 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
-import {Field, reduxForm} from 'redux-form';
-//import TextField from '@material-ui/core/TextField';
+import {Field, reduxForm, Form} from 'redux-form';
+import connect from 'react-redux/es/connect/connect';
 
-import ModalWindow from "../components/ModalWindow";
-import connect from "react-redux/es/connect/connect";
+import ModalWindow from '../components/ModalWindow';
+import TextField from '../components/TextField';
 
 class ModalContainer extends React.Component {
-
-    data = this.props.bookInfo;
 
     handleEscPress = (event) => {
         if (event.keyCode === 27) {
@@ -24,28 +22,30 @@ class ModalContainer extends React.Component {
         document.removeEventListener("keydown", this.handleEscPress);
     }
 
+    componentWillUpdate() {
+        console.log('updated')
+    }
+
     render() {
-console.log(this.props)
         const {bookInfo} = this.props;
+        console.log('rendered');
         return (
             this.props.initialValues ?
                 <ModalWindow>
                     <p className='modal-icon-close' onClick={this.handleCloseModal}>×</p>
                     <div className='book-information-container' onKeyUp={this.close}>
                         <div className='book-cover'>
-                            <img
-                                src={bookInfo.cover}
-                                alt="white fang"/>
+                            <img src={bookInfo.cover} alt="white fang"/>
                         </div>
-                        <form >
+
+                        <Form>
                             <div className="book-info">
-                                <Field name='name' className="modal-title" component='textarea' type='text' />
-                                <Field name='author' className='book-author' component='textarea' type='text'/>
+                                <Field name='name' className="modal-title" component={TextField} type='text'/>
+                                <Field name='author' className='book-author' component={TextField} type='text'/>
                                 <Field name='description' className='book-description' component='textarea' type='text'/>
                             </div>
-                        </form>
+                        </Form>
                     </div>
-
                 </ModalWindow> : <Redirect to='/'/>
         );
     }
@@ -56,10 +56,10 @@ console.log(this.props)
 }
 
 const mapStateToProps = ({bookReducer}, {match}) => {
-    console.log(bookReducer.books.find(({id}) => id === match.params.id))
+    const book = bookReducer.books.find(({id}) => id === match.params.id);
     return {
-        bookInfo: bookReducer.books.find(({id}) => id === match.params.id),
-        initialValues: bookReducer.books.find(({id}) => id === match.params.id)
+        bookInfo: book,
+        initialValues: book
     }
 };
 

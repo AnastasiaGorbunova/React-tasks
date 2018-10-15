@@ -6,3 +6,10 @@ export function deleteBook(id) {
         id
     };
 }
+
+export function changeInput(value) {
+    return {
+        type: types.INPUT_CHANGE,
+        value
+    };
+}

@@ -39,6 +39,10 @@ export  const bookReducer = (state = initialState, action) => {
                 ...state,
                 books: state.books.filter(({ id }) => id !== action.id)
             };
+            case types.INPUT_CHANGE_ASYNC:
+            return {
+                ...state
+            };
         default:
             return state;
     }
