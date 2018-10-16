@@ -2,7 +2,6 @@ import React from 'react';
 import {Route, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-
 import * as BookActions from '../store/actions/BookActions';
 import ModalContainer from "./ModalContainer";
 

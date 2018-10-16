@@ -5,6 +5,9 @@ import connect from 'react-redux/es/connect/connect';
 
 import ModalWindow from '../components/ModalWindow';
 import TextField from '../components/TextField';
+import {required} from 'utils/formValidators';
+import {changeInput} from "../store/actions/BookActions";
+
 
 class ModalContainer extends React.Component {
 
@@ -28,7 +31,6 @@ class ModalContainer extends React.Component {
 
     render() {
         const {bookInfo} = this.props;
-        console.log('rendered');
         return (
             this.props.initialValues ?
                 <ModalWindow>
@@ -40,9 +42,13 @@ class ModalContainer extends React.Component {
 
                         <Form>
                             <div className="book-info">
-                                <Field name='name' className="modal-title" component={TextField} type='text'/>
-                                <Field name='author' className='book-author' component={TextField} type='text'/>
-                                <Field name='description' className='book-description' component='textarea' type='text'/>
+                                <Field name='name' onBlur={this.onChangeHandle} validate={required}
+                                       className="modal-title" component={TextField} type='text'/>
+                                <Field name='author' onBlur={this.onChangeHandle} validate={required}
+                                       className='book-author' component={TextField} type='text'/>
+                                <Field name='description' onBlur={this.onChangeHandle} validate={required}
+                                       className='book-description' component='textarea'
+                                       type='text'/>
                             </div>
                         </Form>
                     </div>
@@ -53,6 +59,10 @@ class ModalContainer extends React.Component {
     handleCloseModal = () => {
         this.props.history.push('/');
     };
+
+
+    onChangeHandle = () =>  this.props.changeInput(this.props.bookInfo.id);
+
 }
 
 const mapStateToProps = ({bookReducer}, {match}) => {
@@ -67,4 +77,6 @@ ModalContainer = reduxForm({
     form: 'testForm'
 })(ModalContainer);
 
-export default connect(mapStateToProps)(ModalContainer);
+export default connect(mapStateToProps, {
+    changeInput
+})(ModalContainer);

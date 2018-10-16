@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import {Route, BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {reducer as formReducer} from 'redux-form';
-import {combineReducers, createStore, applyMiddleware} from 'redux';
+import {combineReducers, createStore, applyMiddleware, compose} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import '../assets/main.scss';
 import BookList from './containers/BookList';
 import {bookReducer} from 'store/reducers/BookReducer';
-import {watchInputChange} from 'sagas/saga';
+import mainSagas from 'sagas/saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -18,15 +18,19 @@ const rootReducer = combineReducers({
     form: formReducer
 });
 
-const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {}
+const composeEnhancers =
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+            // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+        }) : compose;
 
 const store = createStore(
     rootReducer,
-    persistedState,
-    applyMiddleware(sagaMiddleware)
+    composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
-//sagaMiddleware.run(watchInputChange);
+sagaMiddleware.run(mainSagas);
 
 class App extends React.Component {
 
