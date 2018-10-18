@@ -1,16 +1,23 @@
-import * as types from '../../constants/ActionTypes';
+import * as types from 'constants/ActionTypes';
+import BookStore from 'store/BookStore';
+import books from 'etc/dummy-data/books';
 
 const initialState = {
     books: [],
-    currentBook: null
+    sortings : {
+        pages: true,
+        year: true
+    }
 };
 
 export const bookReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.DELETE_BOOK:
+            // const bookList = state.books.filter(({id}) => id !== action.id);
+            // BookStore.setBooks(bookList);
             return {
                 ...state,
-                books: state.books.filter(({id}) => id !== action.id)
+                books: bookList
             };
         case types.FETCH_BOOKS.SUCCESS:
             return {
@@ -21,7 +28,7 @@ export const bookReducer = (state = initialState, action) => {
             return {
                 ...state,
                 books: action.books
-            }
+            };
         default:
             return state;
     }

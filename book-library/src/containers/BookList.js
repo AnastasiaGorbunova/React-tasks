@@ -2,8 +2,11 @@ import React from 'react';
 import {Route, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import * as BookActions from '../store/actions/BookActions';
-import ModalContainer from "./ModalContainer";
+import * as BookActions from 'store/actions/BookActions';
+import ModalContainer from './ModalContainer';
+import AddBookButton from 'components/AddBookButton';
+import SortBooksButton from 'components/SortBooksButton';
+import {getBooks} from 'utils/selector';
 
 class BookList extends React.Component {
 
@@ -12,6 +15,8 @@ class BookList extends React.Component {
 
         return (
             <React.Fragment>
+                <AddBookButton/>
+                <button className='add-book-button'> Sort books </button>
                 <ul className='book-container'> {
                     books.map(book =>
                         <Link to={`/books/${book.id}`} key={book.id}>
@@ -34,7 +39,7 @@ class BookList extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        books: state.bookReducer.books
+        books: getBooks(state)
     }
 };
 
@@ -43,6 +48,5 @@ const mapDispatchToProps = dispatch => ({
         dispatch(BookActions.deleteBook(id))
     }
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookList);

@@ -9,11 +9,15 @@
 
 //common styles
 
-textarea, input {
+textarea, input, button {
   overflow: hidden;
   resize: none;
   border: 0;
   outline: none;
+}
+
+.text-field-valid {
+  background: red;
 }
 
 body {
@@ -24,12 +28,26 @@ body {
   }
 }
 
+.add-book-button {
+  display: flex;
+  margin: 20px auto 0;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, .25);
+  padding: 15px;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-family: 'Crimson Text', serif;
+  cursor: pointer;
+}
+
 //styles for book list
 
 .book-container {
   display: flex;
-  max-width: 500px;
-  margin: 70px auto 0;
+  max-width: 600px;
+  flex-wrap: wrap;
+  margin: 40px auto 0;
   font-family: 'Crimson Text', serif;
   font-size: 24px;
 

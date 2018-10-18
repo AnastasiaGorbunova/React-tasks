@@ -34,3 +34,10 @@ export function changeBookList(books) {
         books
     }
 }
+
+export function sortBooks(books) {
+    return {
+        type : types.SORT_BOOKS,
+        books
+    }
+}

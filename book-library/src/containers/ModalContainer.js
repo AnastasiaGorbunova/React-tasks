@@ -6,8 +6,7 @@ import connect from 'react-redux/es/connect/connect';
 import ModalWindow from '../components/ModalWindow';
 import TextField from '../components/TextField';
 import {required} from 'utils/formValidators';
-import {changeInput} from "../store/actions/BookActions";
-
+import {changeInput} from 'store/actions/BookActions';
 
 class ModalContainer extends React.Component {
 
@@ -30,6 +29,7 @@ class ModalContainer extends React.Component {
     }
 
     render() {
+        console.log(this.props)
         const {bookInfo} = this.props;
         return (
             this.props.initialValues ?

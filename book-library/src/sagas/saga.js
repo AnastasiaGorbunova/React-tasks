@@ -9,16 +9,27 @@ function* fetchBooks() {
     yield put(fetchBooksTypes.success(booksList));
 }
 
+// function* deleteBook() {
+//     const booksList = yield call(::BookStore.getBooksList);
+//     const bookList = state.books.filter(({id}) => id !== action.id);
+//     BookStore.setBooks(bookList);
+// }
+
 function* changeInput() {
     const formValues = yield select(getFormValues('testForm'));
     const isInputValid = yield select(isValid('testForm'));
+
     if (isInputValid) {
         BookStore.setCurrentBook(formValues, formValues.id);
-       // yield put(changeBookList(formValues))
+        const booksList = yield call(::BookStore.getBooksList);
+        yield put(changeBookList(booksList));
+    } else {
+        console.log('error');
     }
 }
 
 export default function* () {
     yield fork(fetchBooks);
+    yield fork(deleteBook);
     yield takeEvery('INPUT_CHANGE', changeInput);
 }

@@ -10,12 +10,12 @@ class BookStore extends Store {
 
     setCurrentBook(book, id) {
         const booksList = this.get('books');
-        let indexOfCurrentBook = booksList.findIndex(function (book) {
+        const indexOfCurrentBook = booksList.findIndex(function (book) {
             return book.id === id;
         });
-        console.log(booksList[id - 1]);
-        console.log(book);
-        this.set(booksList[indexOfCurrentBook], book);
+
+        booksList[indexOfCurrentBook] = book;
+        this.set('books', booksList);
     }
 
     getBooksList() {
