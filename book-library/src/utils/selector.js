@@ -8,7 +8,6 @@ export const getBooks = createSelector(
     [bookSelector, getSorts],
 
     (books, sortsList) => {
-        console.log(books);
         const clonedBooks = cloneDeep(books);
         Object.entries(sortsList).map(([sortName, isEnabled]) => {
             isEnabled && clonedBooks.sort((a, b) => (a[sortName] < b[sortName]) - (a[sortName] > b[sortName]))

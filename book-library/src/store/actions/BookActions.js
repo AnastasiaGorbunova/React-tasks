@@ -35,9 +35,8 @@ export function changeBookList(books) {
     }
 }
 
-export function sortBooks(books) {
+export function sortBooks() {
     return {
-        type : types.SORT_BOOKS,
-        books
+        type : types.SORT_BOOKS
     }
 }

@@ -6,7 +6,7 @@ import * as BookActions from 'store/actions/BookActions';
 import ModalContainer from './ModalContainer';
 import AddBookButton from 'components/AddBookButton';
 import SortBooksButton from 'components/SortBooksButton';
-import {getBooks} from 'utils/selector';
+import {getBooks, getSorts} from 'utils/selector';
 
 class BookList extends React.Component {
 
@@ -16,7 +16,7 @@ class BookList extends React.Component {
         return (
             <React.Fragment>
                 <AddBookButton/>
-                <button className='add-book-button'> Sort books </button>
+                <button className='add-book-button' onClick={this.onSortHandle}> Sort books </button>
                 <ul className='book-container'> {
                     books.map(book =>
                         <Link to={`/books/${book.id}`} key={book.id}>
@@ -34,6 +34,8 @@ class BookList extends React.Component {
         );
     }
 
+    onSortHandle = () =>  this.props.sortBooks();
+
     onDeleteHandle = id => () => this.props.deleteBook(id);
 }
 
@@ -46,6 +48,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
     deleteBook: id => {
         dispatch(BookActions.deleteBook(id))
+    },
+    sortBooks : () => {
+        dispatch(BookActions.sortBooks())
     }
 });
 

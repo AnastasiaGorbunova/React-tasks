@@ -10,6 +10,7 @@ import '../assets/main.scss';
 import BookList from './containers/BookList';
 import {bookReducer} from 'store/reducers/BookReducer';
 import mainSagas from 'sagas/saga';
+import Loader from 'components/Loader';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -39,12 +40,16 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <Provider store={store}>
-                    <Route path='/' component={BookList}/>
+                    <React.Fragment>
+                        <Loader/>
+                    </React.Fragment>
                 </Provider>
             </BrowserRouter>
-        );
+    );
     }
-}
+    }
 
-const domContainer = document.querySelector('.app-container');
-ReactDOM.render(<App/>, domContainer);
+    const domContainer = document.querySelector('.app-container');
+    ReactDOM.render(
+        <App/>
+    , domContainer);

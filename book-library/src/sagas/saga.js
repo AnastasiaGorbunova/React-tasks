@@ -30,6 +30,6 @@ function* changeInput() {
 
 export default function* () {
     yield fork(fetchBooks);
-    yield fork(deleteBook);
+   // yield fork(deleteBook);
     yield takeEvery('INPUT_CHANGE', changeInput);
 }
